@@ -7,5 +7,5 @@ namespace reverse_cipher {
 
 namespace caesar_cipher {
    std::string encrypt(std::string, int key);
-   std::string decrypt(std::string);
+   std::string decrypt(std::string, int key);
 }
