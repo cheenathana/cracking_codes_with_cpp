@@ -5,9 +5,8 @@
 int main() {
    std::string a = "Hello world!!!";
 
-   std::string encrypt = reverse_cipher::encrypt(a);
-   std::string decrypt = reverse_cipher::decrypt(encrypt);
+   std::string encrypt = caesar_cipher::encrypt(a, 1);
 
-   std::cout << encrypt << std::endl << decrypt << std::endl;;
+   std::cout << encrypt << std::endl;
    return 0;
 }
