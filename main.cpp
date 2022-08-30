@@ -1,16 +1,41 @@
 #include <iostream>
+#include <fstream>
+#include <sstream>
 
 #include "cipher.h"
 
 int main() {
-   std::string a = "Common sense is not so common.";
-   std::cout << "Message : " << a << std::endl;
+   // READING FILE AS A STRING AND DOING ENCRYPTION & DECRYPTION
+   std::ifstream f;
 
-   std::string encrypt = ctransposition_cipher::encrypt(a, 9);
-   std::string decrypt = ctransposition_cipher::decrypt(encrypt, 9);
+   f.open("demo.txt");     // opening in read mode
+   if (f.fail()) {
+      std::cout << "Problem in opening the file!!!" << std::endl;
+      return 1;
+   }
+
+   std::stringstream buf;
+   buf << f.rdbuf();   // rdbuf - return a pointer to string buffer object
+                       // << will read all the contents in to buf
+   std::string file_contents, encrypt, decrypt;
+   file_contents = buf.str();
+
+   std::cout << file_contents << std::endl;
+   std::cout << "=================================" << std::endl;
+
+   encrypt = ctransposition_cipher::encrypt(file_contents, 8);
 
    std::cout << encrypt << std::endl;
+   std::cout << "=================================" << std::endl;
+
+
+   decrypt = ctransposition_cipher::decrypt(encrypt, 8);
+
    std::cout << decrypt << std::endl;
+   std::cout << "=================================" << std::endl;
+
+
+   f.close();
 
    return 0;
 }
