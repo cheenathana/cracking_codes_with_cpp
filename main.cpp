@@ -2,7 +2,7 @@
 #include <fstream>
 #include <sstream>
 
-#include "cipher.h"
+#include "ciphers/cipher.h"
 
 int main() {
    // READING FILE AS A STRING AND DOING ENCRYPTION & DECRYPTION
