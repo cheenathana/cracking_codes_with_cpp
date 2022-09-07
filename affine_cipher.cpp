@@ -6,15 +6,25 @@
 const std::string SYMBOLS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 !?.";
 
 
+void split_key_parts(int key, int& key_a, int& key_b) {
+   key_a = key / SYMBOLS.size();
+   key_b = key % SYMBOLS.size();
+}
+
 std::string affine_cipher::encrypt(std::string message, int key) {
    /* Encrypts the message using AFFINE CIPHER based on the key and returns it.
     * Affine cipher is a modified version of ceaser cipher.
+    * KeyA - int used to multiply with the letter's index
+    * KeyB - add it to the above product
     *
     * @param string Message to be hidden
     * @param int Key used for shifting
     * @return string Encrypted data
     */
    std::string encrypt = "";
+   int keyA = 0, keyB = 0;
+
+   split_key_parts(key, keyA, keyB);
 
    for (int i = 0; i < message.size(); i++) {
       // checking if the character is present in the SYMBOLS
@@ -24,8 +34,8 @@ std::string affine_cipher::encrypt(std::string message, int key) {
          continue;
       }
 
-      // finding the new index based on the key
-      int padding = index * key;
+      // finding the new index based on the key parts
+      int padding = index * keyA + keyB;
 
       // resize the padding if it is greater than SYMBOL size
       if (padding > SYMBOLS.size()) {
@@ -57,10 +67,10 @@ std::string caesar_cipher::decrypt(std::string encrypted, int key) {
       }
 
       // finding the old index based on the key
-      int padding = index - key;
+      int padding = index / key;
 
       // resize the padding if the value is negative
-      if (padding < 0) {
+      if (padding == 0) {
          padding = SYMBOLS.size() + padding;
       }
 
