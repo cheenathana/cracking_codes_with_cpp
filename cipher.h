@@ -14,3 +14,8 @@ namespace ctransposition_cipher {
    std::string encrypt(std::string, int);
    std::string decrypt(std::string, int);
 }
+
+namespace affine_cipher {
+   std::string encrypt(std::string, int);
+   std::string decrypt(std::string, int);
+}
