@@ -40,5 +40,7 @@ int main() {
    std::string enc = affine_cipher::encrypt("A computer would deserve to be called intelligent if it could deceive a human into believing that it was human.\" -Alan Turing", 661);
    std::cout << enc << std::endl;
 
+   std::cout << "KEY: " << affine_cipher::generate_key() << std::endl;
+
    return 0;
 }

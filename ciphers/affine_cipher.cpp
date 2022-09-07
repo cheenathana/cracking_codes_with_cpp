@@ -1,5 +1,7 @@
 #include <string>
 #include <stdexcept>
+#include <cstdlib>
+#include <ctime>
 
 #include "cipher.h"
 
@@ -22,7 +24,7 @@ void split_key_parts(int key, int& key_a, int& key_b) {
 
 
 int get_gcd(int x, int y) {
-   //
+   return 1;
 }
 
 
@@ -42,7 +44,7 @@ void validate_key_strength(int key_a, int key_b) {
       std::runtime_error weak_cipher_key_error(
             "Selected cipher key is weak. "
             "KeyA mut greater than 0 and KeyB b/w 0 and size of SYMBOLS. "
-            "Pick a different key".
+            "Pick a different key."
          );
       throw weak_cipher_key_error;
    }
@@ -54,6 +56,26 @@ void validate_key_strength(int key_a, int key_b) {
             "Decrypting will cause issues. Pick a different key."
          );
       throw weak_cipher_key_error;
+   }
+}
+
+
+int affine_cipher::generate_key() {
+   /* Picking a key for Affine Cipher has many restriction as all key is not 
+    * as secure. So to randomly generate key which is valid and more secure
+    * use this function
+    */
+   int keyA = 0, keyB = 0;
+
+   // seeding the random generator
+   srand(time(0));
+
+   while (1) {
+      keyA = 2 + (rand() % SYMBOLS.size());
+      keyB = 2 + (rand() % SYMBOLS.size());
+
+      if (get_gcd(keyA, SYMBOLS.size()) == 1)
+         return keyA * SYMBOLS.size() + keyB;
    }
 }
 
