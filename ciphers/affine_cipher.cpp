@@ -3,6 +3,14 @@
 
 #include "cipher.h"
 
+/*
+ * ENCRYPTION PROCESS
+ * plain text -> multiply by keyA -> Add keyB -> Mod by size(if larger) -> cipher text
+ *
+ * DECRYPTION PROCESS
+ * cipher text -> substract keyB -> multiply by mod inverse of keyA -> mod by size -> text
+ */
+
 // defining character which are considered for encrypt/decrypt
 const std::string SYMBOLS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 !?.";
 
@@ -13,11 +21,39 @@ void split_key_parts(int key, int& key_a, int& key_b) {
 }
 
 
-void validate_key_strength(int key_a) {
-   // Key value and Lenght of the SYMBOLS should not be equal
-   if (key_a == 1) {
-      std::runtime_error weak_key("Weak key selected. Choose a different key.");
-      throw weak_key;
+int get_gcd(int x, int y) {
+   //
+}
+
+
+void validate_key_strength(int key_a, int key_b) {
+   // CONDITION 01
+   if (key_a == 1 || key_b == 0) {
+      std::runtime_error weak_cipher_key_error(
+            "Selected cipher key is weak. "
+            "Either KeyA is 1 or KeyB is 0. "
+            "Pick a different key."
+         );
+      throw weak_cipher_key_error;
+   }
+
+   // CONDITION 02
+   if (key_a < 0 || key_b < 0 || key_b > (SYMBOLS.size() - 1)) {
+      std::runtime_error weak_cipher_key_error(
+            "Selected cipher key is weak. "
+            "KeyA mut greater than 0 and KeyB b/w 0 and size of SYMBOLS. "
+            "Pick a different key".
+         );
+      throw weak_cipher_key_error;
+   }
+
+   // CONDITION 03
+   if (get_gcd(key_a, SYMBOLS.size()) != 1) {
+      std::runtime_error weak_cipher_key_error(
+            "KeyA and size of SYMBOLS are not relatively prime. "
+            "Decrypting will cause issues. Pick a different key."
+         );
+      throw weak_cipher_key_error;
    }
 }
 
@@ -27,7 +63,7 @@ std::string affine_cipher::encrypt(std::string message, int key) {
     * Affine cipher is a modified version of ceaser cipher.
     * KeyA - int used to multiply with the letter's index
     * KeyB - add it to the above product
-    *
+    * 
     * @param string Message to be hidden
     * @param int Key used for shifting
     * @return string Encrypted data
@@ -36,7 +72,7 @@ std::string affine_cipher::encrypt(std::string message, int key) {
    int keyA = 0, keyB = 0;
 
    split_key_parts(key, keyA, keyB);
-   validate_key_strength(keyA);
+   validate_key_strength(keyA, keyB);
 
    for (int i = 0; i < message.size(); i++) {
       // checking if the character is present in the SYMBOLS
@@ -69,6 +105,9 @@ std::string caesar_cipher::decrypt(std::string encrypted, int key) {
     * @return string Hidden message
     */
    std::string decrypted = "";
+   int keyA = 0, keyB = 0;
+
+   split_key_parts(key, keyA, keyB);
 
    for (int i = 0; i < encrypted.size(); i++) {
       // checking if the character is present in the SYMBOLS
