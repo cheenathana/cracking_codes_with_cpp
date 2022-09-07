@@ -37,8 +37,8 @@ int main() {
 
    // f.close();
    //
-   std::string enc = affine_cipher::encrypt("A computer would deserve to be called intelligent if it could deceive a human into believing that it was human.\" -Alan Turing", 2894);
-   std::cout << enc << std::endl;;
+   std::string enc = affine_cipher::encrypt("A computer would deserve to be called intelligent if it could deceive a human into believing that it was human.\" -Alan Turing", 661);
+   std::cout << enc << std::endl;
 
    return 0;
 }

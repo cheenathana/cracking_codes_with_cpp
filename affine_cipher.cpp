@@ -1,4 +1,5 @@
 #include <string>
+#include <stdexcept>
 
 #include "cipher.h"
 
@@ -10,6 +11,16 @@ void split_key_parts(int key, int& key_a, int& key_b) {
    key_a = key / SYMBOLS.size();
    key_b = key % SYMBOLS.size();
 }
+
+
+void validate_key_strength(int key_a) {
+   // Key value and Lenght of the SYMBOLS should not be equal
+   if (key_a == 1) {
+      std::runtime_error weak_key("Weak key selected. Choose a different key.");
+      throw weak_key;
+   }
+}
+
 
 std::string affine_cipher::encrypt(std::string message, int key) {
    /* Encrypts the message using AFFINE CIPHER based on the key and returns it.
@@ -25,6 +36,7 @@ std::string affine_cipher::encrypt(std::string message, int key) {
    int keyA = 0, keyB = 0;
 
    split_key_parts(key, keyA, keyB);
+   validate_key_strength(keyA);
 
    for (int i = 0; i < message.size(); i++) {
       // checking if the character is present in the SYMBOLS
@@ -50,7 +62,7 @@ std::string affine_cipher::encrypt(std::string message, int key) {
 
 
 std::string caesar_cipher::decrypt(std::string encrypted, int key) {
-   /* Decrypts the data using CAESAR CIPHER based on the key and returns it
+   /* Decrypts the data using AFFINE CIPHER based on the key and returns it
     *
     * @param string Encrypted data
     * @param int Key used for shifting
