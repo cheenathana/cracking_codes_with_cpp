@@ -44,5 +44,6 @@ int main() {
 
    std::cout << "GCD of 24, 32: " << affine_cipher::get_gcd(24, 32) << std::endl;
 
+
    return 0;
 }

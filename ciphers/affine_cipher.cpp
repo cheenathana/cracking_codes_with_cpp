@@ -112,6 +112,25 @@ int affine_cipher::generate_key() {
 }
 
 
+int find_mod_inverse(int x, int m) {
+   /* To calculate the Inverse-Mod value for two numbers.
+    * We use brute-force method to calculate the mod-inverse value.
+    * (x * i) % m == 1
+    * where, i - modular inverse value
+    * We have to substitute for i value from 1 to m and see if it satisfies
+    * the equeation. The i value which satisfies the equation is mod inverse value
+    *
+    * @param int x
+    * @param int m
+    * @return int Modular-Inverse value
+    */
+   for (int i = 1; i < m; i++) {
+      if ( ( (x * i) % m ) == 1)
+         return i;
+   }
+}
+
+
 std::string affine_cipher::encrypt(std::string message, int key) {
    /* Encrypts the message using AFFINE CIPHER based on the key and returns it.
     * Affine cipher is a modified version of ceaser cipher.
