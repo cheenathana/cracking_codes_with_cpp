@@ -19,4 +19,5 @@ namespace affine_cipher {
    std::string encrypt(std::string, int);
    std::string decrypt(std::string, int);
    int generate_key();
+   int get_gcd(int, int);
 }

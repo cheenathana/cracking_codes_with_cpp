@@ -23,8 +23,20 @@ void split_key_parts(int key, int& key_a, int& key_b) {
 }
 
 
-int get_gcd(int x, int y) {
-   return 1;
+int affine_cipher::get_gcd(int x, int y) {
+   /* To calculate Greatest Common Divisor of two numbers */
+   if (x == 0)
+      return y;
+   if (y == 0)
+      return x;
+
+   if (x == y)
+      return x;
+
+   if (x > y)
+      return get_gcd(x-y, y);
+
+   return get_gcd(x, y-x);
 }
 
 
@@ -50,7 +62,7 @@ void validate_key_strength(int key_a, int key_b) {
    }
 
    // CONDITION 03
-   if (get_gcd(key_a, SYMBOLS.size()) != 1) {
+   if (affine_cipher::get_gcd(key_a, SYMBOLS.size()) != 1) {
       std::runtime_error weak_cipher_key_error(
             "KeyA and size of SYMBOLS are not relatively prime. "
             "Decrypting will cause issues. Pick a different key."

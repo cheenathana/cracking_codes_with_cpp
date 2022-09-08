@@ -37,10 +37,12 @@ int main() {
 
    // f.close();
    //
-   std::string enc = affine_cipher::encrypt("A computer would deserve to be called intelligent if it could deceive a human into believing that it was human.\" -Alan Turing", 661);
+   int kk = affine_cipher::generate_key();
+   std::string enc = affine_cipher::encrypt("A computer would deserve to be called intelligent if it could deceive a human into believing that it was human.\" -Alan Turing", kk);
    std::cout << enc << std::endl;
 
-   std::cout << "KEY: " << affine_cipher::generate_key() << std::endl;
+
+   std::cout << "GCD of 24, 32: " << affine_cipher::get_gcd(24, 32) << std::endl;
 
    return 0;
 }
