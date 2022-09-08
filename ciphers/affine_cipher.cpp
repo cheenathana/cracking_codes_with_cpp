@@ -18,13 +18,25 @@ const std::string SYMBOLS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxy
 
 
 void split_key_parts(int key, int& key_a, int& key_b) {
+   /* To generate a split key out of passed in key to enhance encryption security
+    *
+    * @param int User entered key
+    * @param int& Reference value for holding keyA
+    * @param int& Reference value for holding keyB
+    * @return None
+    */
    key_a = key / SYMBOLS.size();
    key_b = key % SYMBOLS.size();
 }
 
 
 int affine_cipher::get_gcd(int x, int y) {
-   /* To calculate Greatest Common Divisor of two numbers */
+   /* To calculate Greatest Common Divisor of two numbers 
+    * 
+    * @param int Non-negative value
+    * @param int Non-negative value
+    * @return int Greatest Common Divisor of x,y
+    */
    if (x == 0)
       return y;
    if (y == 0)
@@ -41,6 +53,12 @@ int affine_cipher::get_gcd(int x, int y) {
 
 
 void validate_key_strength(int key_a, int key_b) {
+   /* To validate the picked key is secure or not based on three conditions.
+    * If key is not secure, a runtime exception will be raised.
+    *
+    * @param int KeyA
+    * @param int KeyB
+    */
    // CONDITION 01
    if (key_a == 1 || key_b == 0) {
       std::runtime_error weak_cipher_key_error(
@@ -76,6 +94,8 @@ int affine_cipher::generate_key() {
    /* Picking a key for Affine Cipher has many restriction as all key is not 
     * as secure. So to randomly generate key which is valid and more secure
     * use this function
+    *
+    * @return int Generated secure key to use it with Affine Cipher
     */
    int keyA = 0, keyB = 0;
 
