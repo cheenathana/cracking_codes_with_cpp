@@ -170,7 +170,7 @@ std::string affine_cipher::encrypt(std::string message, int key) {
 }
 
 
-std::string caesar_cipher::decrypt(std::string encrypted, int key) {
+std::string affine_cipher::decrypt(std::string encrypted, int key) {
    /* Decrypts the data using AFFINE CIPHER based on the key and returns it
     *
     * @param string Encrypted data
