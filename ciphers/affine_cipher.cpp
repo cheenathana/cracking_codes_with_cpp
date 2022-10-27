@@ -191,15 +191,15 @@ std::string affine_cipher::decrypt(std::string encrypted, int key) {
       }
 
       // finding the old index based on the key
-      int padding = index / key;
+      int padding = (index - keyB) * find_mod_inverse(keyA, SYMBOLS.size());
 
-      // resize the padding if the value is negative
-      if (padding == 0) {
-         padding = SYMBOLS.size() + padding;
+      // resize the padding if it is greater than SYMBOL size
+      if (padding > SYMBOLS.size()) {
+         padding %= SYMBOLS.size();
       }
 
       decrypted += SYMBOLS[padding];
    }
 
-   return decrypted;;
+   return decrypted;
 }
