@@ -4,10 +4,10 @@
 
 <h5>CIPHERS </h5>
 
-- [ ] Reverse cipher
-- [ ] Caesar cipher 
-- [ ] Columnar Transposition cipher
-- [ ] Affine cipher
+- [x] Reverse cipher
+- [x] Caesar cipher 
+- [x] Columnar Transposition cipher
+- [x] Affine cipher
 - [ ] Substitution cipher
 - [ ] Vigenere cipher
 - [ ] One-Time pad cipher
