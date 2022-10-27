@@ -8,6 +8,6 @@
 - [ ] Caesar cipher 
 - [ ] Columnar Transposition cipher
 - [ ] Affine cipher
-- [ ] Sunstitution cipher
+- [ ] Substitution cipher
 - [ ] Vigenere cipher
 - [ ] One-Time pad cipher
